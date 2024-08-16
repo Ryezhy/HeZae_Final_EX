@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import {useRouter} from "vue-router";
 import {useLoginStore} from "@/stores/loginStore";
 import router from "@/router";
 import {ElMessage} from "element-plus";
+import {Search} from "@element-plus/icons-vue";
 const loginStore = useLoginStore()
 const logout = () => {
   loginStore.logout()
@@ -50,24 +50,27 @@ const handleClick = (e: MouseEvent) => {
           <el-row  :gutter="20">
             <el-col :span="4" >
               <div style="height: 85vh;overflow-y: auto" class="left-content-scroller">
-                <el-text>
-                  或许你不知道，这样的结构更加人性化
+                <el-affix :offset="80" style="width: 100%">
+                  <div class="mt-4">
+                    <el-input
+                        style="max-width: 600px"
+                        placeholder="请输入内容"
+                    >
+                      <template #append>
+                        <el-button :icon="Search" />
+                      </template>
+                    </el-input>
+                  </div>
+                </el-affix>
+                <el-text style="width: 100%"  size="large">
+                  从这里开始
                 </el-text>
-                <div style="height: 400px;background: #6596BA; margin-top: 20px;">
-                  left1
-                </div>
-                <div style="height: 400px;background: #6596BA; margin-top: 20px;">
-                  left1
-                </div>
-                <div style="height: 400px;background: #6596BA; margin-top: 20px;">
-                  left1
-                </div>
-                <div style="height: 400px;background: #6596BA; margin-top: 20px;">
-                  left1
-                </div>
+                <el-button style="width: 100%">
+                  快速开始
+                </el-button>
               </div>
             </el-col>
-            <el-col :span="20" >
+            <el-col :span="20">
               <div>
                 <el-row>
                   <el-col :span="20">
