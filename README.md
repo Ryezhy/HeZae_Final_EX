@@ -1,33 +1,29 @@
 # LT_Manager_Service
 
-This template should help get you started developing with Vue 3 in Vite.
+此项目还在开发中，敬请期待
 
-## Recommended IDE Setup
+## 推荐的启动IDE
+[WebStorm]("https://www.jetbrains.com/webstorm/")
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-## Type Support for `.vue` Imports in TS
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## 开始
 
 ```sh
 npm install
 ```
+### 安装Element-Plus
+```sh
+npm install element-plus --save
+```
 
-### Compile and Hot-Reload for Development
-
+### 编写和热加载
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
+### 类型检查、编译
 ```sh
 npm run build
 ```
