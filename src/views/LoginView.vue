@@ -1,23 +1,30 @@
 <script setup lang="ts">
 import LoginComponent from "@/components/LoginComponent.vue";
 import {Flag, User, Trophy } from "@element-plus/icons-vue";
+const moveToUrl = (url:string|undefined) => {
+  window.open(url)
+}
 </script>
 <template>
   <div class="common-layout" style="width: 100vw;height: 100%">
     <el-menu mode="horizontal" :ellipsis="false">
       <el-menu-item index="0">
         <template #title>
-          <el-icon><Flag /></el-icon>
+          <img
+              style="margin: 0 20px 0 0;width: 30px"
+              src="/logo.svg"
+              alt="Element logo"
+          />
           <span>HEZAE</span>
         </template>
       </el-menu-item>
-      <el-menu-item index="1">
+      <el-menu-item index="1" @click="moveToUrl('https://github.com/Ryezhy')">
         <template #title>
           <el-icon><user /></el-icon>
           <span>联系开发者</span>
         </template>
       </el-menu-item>
-      <el-menu-item index="2">
+        <el-menu-item index="2" @click="moveToUrl('https://github.com/Ryezhy/Hezae_Final_EX')">
         <template #title>
           <el-icon><Trophy /></el-icon>
           <span>Github</span>
