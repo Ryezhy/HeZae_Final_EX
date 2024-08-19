@@ -1,6 +1,6 @@
-# LT_Manager_Service
+# Hezae_Final_EX
 
-此项目还在开发中，敬请期待
+本科最终作品，还在开发中，敬请期待
 
 ## 推荐的启动IDE
 [WebStorm]("https://www.jetbrains.com/webstorm/")
