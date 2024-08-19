@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LoginComponent from "@/components/LoginComponent.vue";
+import LoginComponent from "@/components/liteComponents/LoginComponent.vue";
 import {Flag, User, Trophy } from "@element-plus/icons-vue";
 const moveToUrl = (url:string|undefined) => {
   window.open(url)

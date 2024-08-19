@@ -5,13 +5,32 @@ const router = createRouter({
       {
         path: '/',
         name: '登录',
-        component: () => import('../views/LoginView.vue')
+        component: () => import('@/views/LoginView.vue')
       },
       {
-        path: '/home',
+        path: '/index',
         name: '首页',
-        component: () => import('../views/HomeView.vue')
-      }
+        component: () => import('@/views/IndexView.vue'),
+        children: [
+            {
+                path:'/index/main',
+                name: '主页',
+                component: () => import('@/components/viewComponents/mainViewComponent.vue'),
+                children: [
+                    {
+                        path:'/index/main/home',
+                        name: '主页/首页',
+                        component: () => import('@/components/viewComponents/viewLiteComponents/homeLiteViewComponent.vue'),
+                    },
+                    {
+                        path:'/index/main/settings',
+                        name: '主页/设置',
+                        component: () => import('@/components/viewComponents/viewLiteComponents/settingsLiteViewComponent.vue'),
+                    },
+                ]
+            },
+        ]
+      },
   ]
 })
 

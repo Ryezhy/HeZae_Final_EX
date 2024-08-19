@@ -40,7 +40,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       const loginResult = await loginStore.login(ruleForm);
       if (loginResult) {
         ElMessage.success('登录成功');
-        await router.push('/home');
+        await router.push('/index/main/home');
       } else {
         ElMessage.error('登录失败');
       }
@@ -51,7 +51,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 }
 </script>
 <template  >
-  <el-row class="login-row" gutter="30" >
+  <el-row class="login-row" :gutter="30" >
     <el-col :span="8">
       <!-- 留空图标-->
       <el-image style="margin: 50px 0px 0px 0px"
@@ -60,7 +60,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     </el-col>
     <el-col :span="16">
       <el-form
-          class="login-form"
+          class="login-form content-style"
           ref="ruleFormRef"
           :model="ruleForm"
           :rules="rules"
@@ -136,12 +136,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   height: 100%;
 }
 .login-form{
-  border-radius: 4px;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 0px solid #20669B;
   padding: 30px;
-
 }
 </style>
