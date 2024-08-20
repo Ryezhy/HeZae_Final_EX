@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
-
+//导入组件
+import ScrollerItem from  "@/components/liteComponents/scrollerItemComponent.vue"
 const containerRef = ref<HTMLElement | null>(null)
 const handleAnchorClick = (e: MouseEvent,href:string) => {
   e.preventDefault(); // 阻止默认行为
@@ -8,37 +9,25 @@ const handleAnchorClick = (e: MouseEvent,href:string) => {
 </script>
 <template>
   <el-row :gutter="18">
-    <el-col :span="20" >
+    <el-col :span="20" v-loading="false">
       <div ref="containerRef"  class="middle-content-scroller">
         <div id="part1" style="height: 55vh;background: rgba(255, 0, 0, 0.00);margin-top: 30px;border-radius: 8px">
           <span style="font-size: 21px;font-weight:bold;margin-left: 2px">1.总览</span>
-          <div id="part1D1" style="height: 40%;background: #f2f2f2;padding: 8px;border-radius: 8px;margin-top:16px;">
-             <span style="font-size: 20px;font-weight:bold;">1.1项目介绍</span>
-            <el-divider  style="padding: 5px;margin: 0;"/>
-            <span>
-              此项目使用了多端开发，Web前端使用Vue3开发，UI组件库为Element Plus，后端使用FastAPI开发，移动端使用安卓(Compose)开发。
-            </span>
-          </div>
-          <div id="part1D2" style="height: 50%;background: #f2f2f2;padding: 8px;margin-top:16px;border-radius: 8px">
-            <span style="font-size: 20px;font-weight:bold;">1.2项目进度</span>
-            <el-divider  style="padding: 5px;margin: 0;"/>
-          </div>
+          <ScrollerItem id="part1D1"  style="height: 40%;margin-top:16px;" title="1.1项目介绍"
+                        content="此项目使用了多端开发，Web前端使用Vue3开发，UI组件库为Element Plus，后端使用FastAPI开发，移动端使用安卓(Compose)开发。"/>
+          <ScrollerItem id="part1D2"  style="height: 50%;margin-top:16px;" title="1.2项目进度"
+                        content=""/>
         </div>
         <div id="part2" style="height: 55vh;background: rgba(255, 0, 0, 0.00);margin-top: 30px;border-radius: 8px">
           <span style="font-size: 21px;font-weight:bold;margin-left: 2px">2.StableDiffusion</span>
-          <div id="part2D1" style="height: 40%;background: #f2f2f2;padding: 8px;border-radius: 8px;margin-top:16px;">
-            <span style="font-size: 20px;font-weight:bold;">2.1引用</span>
-            <el-divider  style="padding: 5px;margin: 0;"/>
-            <span>
-            </span>
-          </div>
-          <div id="part2D2" style="height: 45%;background: #f2f2f2;padding: 8px;margin-top:16px;border-radius: 8px">
-            <span style="font-size: 20px;font-weight:bold;">2.2使用说明</span>
-            <el-divider  style="padding: 5px;margin: 0;"/>
-          </div>
+          <ScrollerItem id="part2D1"  style="height: 40%;margin-top:16px;" title="2.1引用"
+                        content=""/>
+          <ScrollerItem id="part2D2"  style="height: 40%;margin-top:16px;" title="2.2使用说明"
+                        content=""/>
         </div>
         <div id="part3" style="height: 800px;background: rgba(0, 0, 255, 0.02);margin-top: 30px;">
-          part3
+          <ScrollerItem title="3.项目介绍"
+                        content=" 12331 "/>
         </div>
         <div id="part4" style="height: 300px;background: rgba(0, 0, 255, 0.02);margin-top: 30px;">
           part4
