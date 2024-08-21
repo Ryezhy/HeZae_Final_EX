@@ -23,32 +23,7 @@ const toRouter = (path:string) => {
               <el-icon><search /></el-icon>
               <template #title>首页</template>
             </el-menu-item>
-            <el-sub-menu index="2"  style=" background-color:rgba(255, 255, 255, 0.0);border: 0">
-              <template #title>
-                <el-icon><location /></el-icon>
-                <span>快速开始</span>
-              </template>
-              <el-menu-item-group  style=" background-color:rgba(255, 255, 255, 0.0);border: 0">
-                <template #title><span>Group One</span></template>
-                <el-menu-item index="1-1">item one</el-menu-item>
-                <el-menu-item index="1-2">item two</el-menu-item>
-              </el-menu-item-group>
-              <el-menu-item-group title="Group Two">
-                <el-menu-item index="1-3">item three</el-menu-item>
-              </el-menu-item-group>
-              <el-sub-menu index="1-4">
-                <template #title><span>item four</span></template>
-                <el-menu-item index="1-4-1">item one</el-menu-item>
-              </el-sub-menu>
-            </el-sub-menu>
-            <el-menu-item index="3">
-              <template #title>应用</template>
-            </el-menu-item>
-            <el-menu-item index="4" disabled>
-              <el-icon><document /></el-icon>
-              <template #title>模型</template>
-            </el-menu-item>
-            <el-menu-item index="5" @click="toRouter('/index/main/settings')">
+            <el-menu-item index="2" @click="toRouter('/index/main/settings')">
               <el-icon><setting /></el-icon>
               <template #title>设置</template>
             </el-menu-item>

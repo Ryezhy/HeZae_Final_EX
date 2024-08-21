@@ -1,7 +1,5 @@
 <script setup lang="ts">
-
 import {defineProps} from "vue";
-import {useRouter} from "vue-router";
 const props = defineProps({
   //父组件传过来的参数
   title: {
@@ -21,8 +19,10 @@ const props = defineProps({
     <span style="font-size: 20px;font-weight:bold;">{{props.title}}</span>
     <el-divider  style="padding: 5px;margin: 0;"/>
     <span>
+      <slot>
         {{props.content}}
-      </span>
+      </slot>
+    </span>
   </div>
 </template>
 
