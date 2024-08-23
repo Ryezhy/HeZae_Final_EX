@@ -23,7 +23,12 @@ const toRouter = (path:string) => {
               <el-icon><search /></el-icon>
               <template #title>首页</template>
             </el-menu-item>
-            <el-menu-item index="2" @click="toRouter('/index/main/settings')">
+            <!--应用-->
+            <el-menu-item index="2" @click="toRouter('/index/main/apps')">
+              <el-icon><document /></el-icon>
+              <template #title>应用</template>
+            </el-menu-item>
+            <el-menu-item index="3" @click="toRouter('/index/main/settings')">
               <el-icon><setting /></el-icon>
               <template #title>设置</template>
             </el-menu-item>

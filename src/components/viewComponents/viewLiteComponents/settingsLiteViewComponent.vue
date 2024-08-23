@@ -15,6 +15,8 @@ let systemConfig = ref<BaseConfig[]>([])//默认保留的系统配置
 let mobileConfig = ref<BaseConfig[]>([])//移动端配置
 let systemDefaultConfig = ref<BaseConfig[]>([])
 let mobileDefaultConfig = ref<BaseConfig[]>([])
+let isSystemConfigItemSave = ref<boolean[]>([])
+let isMobileConfigItemSave = ref<boolean[]>([])
 const systemConfigIsLoading = ref(false)
 const mobileConfigIsLoading = ref(false)
 const getDefaultConfig =async(type:string)=> {//获取默认参数
@@ -57,6 +59,7 @@ const resetConfig =async(type:string)=>{//重置
     if (systemConfig.value){
       localStorage.setItem('systemConfig', JSON.stringify(systemConfig.value));//保存到本地缓存
       localStorage.setItem('systemDefaultConfig', JSON.stringify(systemConfig.value));//保存到本地的默认参数
+      isSystemConfigItemSave.value = new Array(systemConfig.value.length).fill(true);
     }else {
       ElMessage.warning('重置系统配置失败')
     }
@@ -65,6 +68,7 @@ const resetConfig =async(type:string)=>{//重置
     if (mobileConfig.value){
       localStorage.setItem('mobileConfig', JSON.stringify(mobileConfig.value));//保存到本地缓存
       localStorage.setItem('mobileDefaultConfig', JSON.stringify(mobileConfig.value));//保存到本地的默认参数
+      isMobileConfigItemSave.value = new Array(mobileConfig.value.length).fill(true);
     }else{
       ElMessage.warning('重置移动端配置失败')
     }
@@ -72,17 +76,50 @@ const resetConfig =async(type:string)=>{//重置
 }
 const resetItemConfig = async (type:string,index:number)=>{
   if (type=='system'){
-    try {
-      const response = await axios.get('http://127.0.0.1:8000/static/config/systemSettings.json?timestamp=' + Date.now());//为了防止缓存机制，加入了时间当成参数
-      //等待2s
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      systemConfigIsLoading.value = false;
-      return response.data
-    } catch (e) {
-      console.error(e);
-      systemConfigIsLoading.value = false;
-    }
+    //从本地默认系统配置获取
+    systemDefaultConfig.value = JSON.parse(localStorage.getItem('systemDefaultConfig') || '[]');
+    systemConfig.value[index].default = systemDefaultConfig.value[index].default
+    isSystemConfigItemSave.value[index] = true
   }else {
+    mobileDefaultConfig.value = JSON.parse(localStorage.getItem('mobileDefaultConfig') || '[]');
+    mobileConfig.value[index].default = mobileDefaultConfig.value[index].default
+    isMobileConfigItemSave.value[index] = true
+  }
+}
+const saveItemConfig = async (type:string,index:number)=>{
+  if (type=='system'){
+    const newSystemConfig = JSON.parse(localStorage.getItem('systemConfig')|| '[]')
+    newSystemConfig[index].default = systemConfig.value[index].default
+    localStorage.setItem('systemConfig', JSON.stringify(newSystemConfig));//保存到本地缓存
+    isSystemConfigItemSave.value[index] = true
+  }else{
+    const newMobileConfig = JSON.parse(localStorage.getItem('mobileConfig')|| '[]')
+    newMobileConfig[index].default = mobileConfig.value[index].default
+    localStorage.setItem('mobileConfig', JSON.stringify(newMobileConfig));//保存到本地缓存
+    isMobileConfigItemSave.value[index] = true
+  }
+}
+const saveConfig = async (type:string)=>{
+  if (type=='system'){
+    localStorage.setItem('systemConfig', JSON.stringify(systemConfig.value));//保存到本地缓存
+    isSystemConfigItemSave.value = new Array(systemConfig.value.length).fill(true);
+  }else{
+    localStorage.setItem('mobileConfig', JSON.stringify(mobileConfig.value));//保存到本地缓存
+    isMobileConfigItemSave.value = new Array(mobileConfig.value.length).fill(true);
+  }
+}
+const resetConfigAll = async (type:string)=>{
+  if (type=='system'){
+    //从本地获取默认参数
+    systemDefaultConfig.value = JSON.parse(localStorage.getItem('systemDefaultConfig') || '[]');
+    systemConfig.value = systemDefaultConfig.value
+    localStorage.setItem('systemConfig', JSON.stringify(systemDefaultConfig.value));//保存到本地缓存
+    isSystemConfigItemSave.value = new Array(systemConfig.value.length).fill(true);
+  }else {
+    mobileDefaultConfig.value = JSON.parse(localStorage.getItem('mobileDefaultConfig') || '[]');
+    mobileConfig.value = mobileDefaultConfig.value
+    localStorage.setItem('mobileConfig', JSON.stringify(mobileDefaultConfig.value));//保存到本地缓存
+    isMobileConfigItemSave.value = new Array(mobileConfig.value.length).fill(true);
   }
 }
 const init = async () => {
@@ -100,6 +137,10 @@ const init = async () => {
   }else {
     mobileConfig.value = JSON.parse(localStorage.getItem('mobileConfig') || '[]');
   }
+  const systemConfigLength = systemConfig.value.length;
+  isSystemConfigItemSave.value = new Array(systemConfigLength).fill(true);
+  const mobileConfigLength = mobileConfig.value.length;
+  isMobileConfigItemSave.value = new Array(mobileConfigLength).fill(true);
 };
 const resetDefaultConfig=async (type:string)=>{
   if (type=='system'){
@@ -118,21 +159,35 @@ const resetDefaultConfig=async (type:string)=>{
     }
   }
 }
+const onChange = (type:string,index:number)=>{
+  if (type=='system'){
+    isSystemConfigItemSave.value[index] = false
+  }else{
+    isMobileConfigItemSave.value[index] = false
+  }
+}
 init();
 </script>
 <template >
   <div style="width: 100%" class="setting-content">
         <el-descriptions title="后台系统配置" v-loading="systemConfigIsLoading" border :column="2" style="width: 100%">
-          <el-descriptions-item :label="item.name" v-for="item in systemConfig">
+          <el-descriptions-item :key="index" v-for="(item,index) in systemConfig">
+            <template #label>
+              {{item.name}}
+              <el-text v-if="!isSystemConfigItemSave[index]" style="color: crimson">
+                *
+              </el-text>
+            </template>
             <template #default>
-              <el-input style="width: 50%" v-if="item.type==0" v-model="item.default" :placeholder="item.tip"></el-input>
-              <el-select style="width: 50%" v-if="item.type==1" placeholder="请选择" v-model="item.default">
-                <el-option v-for="option in item.content" :key="option" :label="option" :value="option" />
+              <el-input style="width: 50%"  @change="onChange('system',index)" v-if="item.type==0" v-model="item.default" :placeholder="item.tip"></el-input>
+              <el-select style="width: 50%"  @change="onChange('system',index)" v-if="item.type==1" placeholder="请选择" v-model="item.default">
+                <el-option v-for="option in item.content"   :key="option" :label="option" :value="option" />
               </el-select>
-              <el-button size="small"  style="margin-left: 5%" type="danger" @click="">
+
+              <el-button size="small"  style="margin-left: 5%" type="danger" @click="resetItemConfig('system',index)">
                 重置
               </el-button>
-              <el-button size="small"  type="success" @click="">
+              <el-button size="small"  type="success" @click="saveItemConfig('system',index)">
                 保存
               </el-button>
               <el-button size="small"  type="primary" @click="">
@@ -142,20 +197,20 @@ init();
         </el-descriptions-item>
           <el-descriptions-item label="全局配置">
           <template #default>
-            <el-button size="small"  type="danger" @click="">
+            <el-button size="small"  type="danger" @click="resetConfigAll('system')">
               重置
             </el-button>
-            <el-button size="small"  type="success" @click="">
+            <el-button size="small"  type="success" @click="saveConfig('system')">
               保存
             </el-button>
             <el-button size="small"  type="primary" @click="">
               刷新
             </el-button>
-            <el-button size="small"  type="warning" @click="resetConfig('system')">
-              从服务器更新系统配置
+            <el-button size="small"  type="danger" @click="resetConfig('system')">
+              从服务器更新&nbsp;本地系统配置
             </el-button>
             <el-button size="small"  type="warning" @click="resetDefaultConfig('system')">
-              仅更新默认系统配置
+              从服务器仅更新&nbsp;本地默认系统配置
             </el-button>
           </template>
         </el-descriptions-item>
@@ -163,16 +218,23 @@ init();
       </div>
   <div style="width: 100%" class="setting-content">
     <el-descriptions title="移动端配置" v-loading="mobileConfigIsLoading" border :column="2" style="width: 100%">
-      <el-descriptions-item :label="item.name" v-for="item in mobileConfig">
+      <el-descriptions-item :key="index" v-for="(item,index) in mobileConfig">
+        <template #label>
+          {{item.name}}
+          <el-text v-if="!isMobileConfigItemSave[index]" style="color: crimson">
+            *
+          </el-text>
+        </template>
         <template #default>
-          <el-input style="width: 50%" v-if="item.type==0" v-model="item.default" :placeholder="item.tip"></el-input>
-          <el-select style="width: 50%" v-if="item.type==1" placeholder="请选择" v-model="item.default">
-            <el-option v-for="option in item.content" :key="option" :label="option" :value="option" />
+          <el-input style="width: 50%"  @change="onChange('mobile',index)" v-if="item.type==0" v-model="item.default" :placeholder="item.tip"></el-input>
+          <el-select style="width: 50%"  @change="onChange('mobile',index)" v-if="item.type==1" placeholder="请选择" v-model="item.default">
+            <el-option v-for="option in item.content"   :key="option" :label="option" :value="option" />
           </el-select>
-          <el-button size="small" style="margin-left: 5%"  type="danger" @click="">
+
+          <el-button size="small"  style="margin-left: 5%" type="danger" @click="resetItemConfig('mobile',index)">
             重置
           </el-button>
-          <el-button size="small"  type="success" @click="">
+          <el-button size="small"  type="success" @click="saveItemConfig('mobile',index)">
             保存
           </el-button>
           <el-button size="small"  type="primary" @click="">
@@ -182,19 +244,24 @@ init();
       </el-descriptions-item>
       <el-descriptions-item label="全局配置">
         <template #default>
-          <el-button size="small"  type="danger" @click="resetConfig('mobile')">
+          <el-button size="small"  type="danger" @click="resetConfigAll('mobile')">
             重置
           </el-button>
-          <el-button size="small"  type="success" @click="">
+          <el-button size="small"  type="success" @click="saveConfig('mobile')">
             保存
           </el-button>
           <el-button size="small"  type="primary" @click="">
             刷新
           </el-button>
+          <el-button size="small"  type="danger" @click="resetConfig('mobile')">
+            从服务器更新&nbsp;本地移动端配置
+          </el-button>
+          <el-button size="small"  type="warning" @click="resetDefaultConfig('mobile')">
+            从服务器仅更新&nbsp;本地默认移动端配置
+          </el-button>
         </template>
       </el-descriptions-item>
-    </el-descriptions>
-  </div>
+    </el-descriptions></div>
   <div style="width: 100%" class="setting-content">
         <el-descriptions title="其他配置"  border :column="2" style="width: 100%">
          <el-descriptions-item label="主题">
