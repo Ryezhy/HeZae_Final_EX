@@ -73,7 +73,7 @@ const resetConfig =async(type:string)=>{//重置
 const resetItemConfig = async (type:string,index:number)=>{
   if (type=='system'){
     try {
-      const response = await axios.get('http://127.0.0.1:8000/static/config/systemSettings.json?timestamp=' + Date.now());
+      const response = await axios.get('http://127.0.0.1:8000/static/config/systemSettings.json?timestamp=' + Date.now());//为了防止缓存机制，加入了时间当成参数
       //等待2s
       await new Promise(resolve => setTimeout(resolve, 1000));
       systemConfigIsLoading.value = false;
