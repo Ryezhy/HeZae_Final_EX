@@ -84,7 +84,6 @@ setInterval(async () => {
 // 例如，在组件加载时调用 getServerStatus() 获取初始数据
 const init = async () => {
   await Promise.all([getHardwareInfo('cpu', true), getHardwareInfo('memory', true), getHardwareInfo('gpu', true)]);
-  ElMessage.success("服务器状态获取成功");
 }
 init();
 </script>
