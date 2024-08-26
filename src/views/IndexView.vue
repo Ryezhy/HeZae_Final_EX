@@ -5,7 +5,7 @@ import router from "@/router";
 import {ElMessage} from "element-plus";
 import {Search} from "@element-plus/icons-vue";
 const loginStore = useLoginStore()
-const  toRouter = (url:String)=>{
+const  toRouter = (url:string)=>{
   router.push(url)
 }
 const logout = () => {

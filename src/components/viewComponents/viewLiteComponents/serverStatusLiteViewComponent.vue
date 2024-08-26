@@ -26,12 +26,12 @@ const getHardwareInfo = async (hardware: string, showLoading = true) => {
     'gpu': gpuServerStatus,
   }[hardware];
   if (showLoading) {
-    isLoading.value = true;
+    isLoading!!.value = true;
   }
 
   try {
     const response = await axios.get(`http://127.0.0.1:8000/get_hardware_info?hardware=${hardware}`);
-    status.value = response.data;
+    status!!.value = response.data;
     console.log(hardware, response.data);
     if (showLoading) {
       ElMessage.success("服务器状态"+hardware+"成功");
@@ -43,7 +43,7 @@ const getHardwareInfo = async (hardware: string, showLoading = true) => {
     console.error(`获取${hardware}状态时发生错误:`, error);
   } finally {
     if (showLoading) {
-      isLoading.value = false;
+      isLoading!!.value = false;
     }
   }
 };
@@ -74,7 +74,7 @@ const toggleVisibility = (hardware: string) => {
     'memory': memoryServerStatusIsVisible,
     'gpu': gpuServerStatusIsVisible,
   }[hardware];
-  isVisible.value = !isVisible.value;
+  isVisible!!.value = !isVisible!!.value;
 };
 // 定时刷新 (不显示 loading)
 setInterval(async () => {
@@ -91,17 +91,17 @@ init();
 <template>
   <div style="width: 100%" class="serverStatus-content" v-if="cpuServerStatusIsVisible">
     <el-descriptions title="CPU" border :column="2" style="width: 100%" v-loading="cpuServerStatusIsLoading" >
-      <el-descriptions-item  v-for="(item,index) in cpuServerStatus" :key="index" :label="item.name">{{item.value}}</el-descriptions-item>
+      <el-descriptions-item  v-for="(item,index) in cpuServerStatus as any" :key="index" :label="item.name">{{item.value}}</el-descriptions-item>
     </el-descriptions>
   </div>
   <div style="width: 100%" class="serverStatus-content" v-if="memoryServerStatusIsVisible">
     <el-descriptions title="内存" border :column="2" style="width: 100%"  v-loading="memoryServerStatusIsLoading" >
-      <el-descriptions-item v-for="(item,index) in memoryServerStatus" :key="index" :label="item.name">{{item.value}}</el-descriptions-item>
+      <el-descriptions-item v-for="(item,index) in memoryServerStatus as any" :key="index" :label="item.name">{{item .value  }}</el-descriptions-item>
     </el-descriptions>
   </div>
   <div style="width: 100%" class="serverStatus-content"  v-if="gpuServerStatusIsVisible">
     <el-descriptions title="GPU" border :column="2" style="width: 100%"  v-loading="gpuServerStatusIsLoading">
-      <el-descriptions-item v-for="(item,index) in gpuServerStatus" :key="index" :label="item.name">{{item.value}}</el-descriptions-item>
+      <el-descriptions-item v-for="(item,index) in gpuServerStatus as any" :key="index" :label="item.name">{{item.value}}</el-descriptions-item>
     </el-descriptions>
   </div>
   <div style="width: 100%;" class="serverStatus-content">

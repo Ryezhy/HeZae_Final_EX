@@ -2,7 +2,7 @@
 import {Search} from "@element-plus/icons-vue";
 import {ref} from "vue";
 import {ElMessage} from "element-plus";
-import {Location, Document, Setting,Monito} from "@element-plus/icons-vue";
+import {Location, Document, Setting,Monitor} from "@element-plus/icons-vue";
 import {useRouter} from "vue-router";
 const router = useRouter()
 const toRouter = (path:string) => {
