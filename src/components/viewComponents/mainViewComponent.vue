@@ -2,7 +2,7 @@
 import {Search} from "@element-plus/icons-vue";
 import {ref} from "vue";
 import {ElMessage} from "element-plus";
-import {Location, Document, Setting} from "@element-plus/icons-vue";
+import {Location, Document, Setting,Monito} from "@element-plus/icons-vue";
 import {useRouter} from "vue-router";
 const router = useRouter()
 const toRouter = (path:string) => {
@@ -15,11 +15,11 @@ const toRouter = (path:string) => {
         <el-affix :offset="80" style="width: 100%" >
         <div style="height: 90vh;overflow-y: auto;padding: 4px"  class="left-content-scroller content-style">
           <el-menu
-              default-active="2"
+              default-active="1"
               style=" background-color:rgba(255, 255, 255, 0.0);border: 0"
               :collapse="false"
           >
-            <el-menu-item index="1" @click="toRouter('/index/main/home')">
+            <el-menu-item  index="1" @click="toRouter('/index/main/home')">
               <el-icon><search /></el-icon>
               <template #title>首页</template>
             </el-menu-item>
@@ -28,7 +28,11 @@ const toRouter = (path:string) => {
               <el-icon><document /></el-icon>
               <template #title>应用</template>
             </el-menu-item>
-            <el-menu-item index="3" @click="toRouter('/index/main/settings')">
+            <el-menu-item index="3" @click="toRouter('/index/main/serverStatus')">
+              <el-icon><monitor /></el-icon>
+              <template #title>服务器状态</template>
+            </el-menu-item>
+            <el-menu-item index="4" @click="toRouter('/index/main/settings')">
               <el-icon><setting /></el-icon>
               <template #title>设置</template>
             </el-menu-item>

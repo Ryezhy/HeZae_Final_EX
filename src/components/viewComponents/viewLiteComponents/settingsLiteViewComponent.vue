@@ -32,9 +32,9 @@ const getDefaultConfig =async(type:string)=> {//获取默认参数
       return response.data
     } catch (e) {
       console.error(e);
-      ElMessage.error('从服务器加载后台配置失败')
+      ElMessage.error('从服务器加载后台配置失败,返回本地的默认配置')
       systemConfigIsLoading.value = false;
-      return [];
+      return JSON.parse(localStorage.getItem('systemDefaultConfig') || '[]');
     }
   } else {
     mobileConfigIsLoading.value = true;
@@ -47,9 +47,9 @@ const getDefaultConfig =async(type:string)=> {//获取默认参数
       return response.data as BaseConfig[];
     } catch (e) {
       console.error(e);
-      ElMessage.error('从服务器加载移动端配置失败')
+      ElMessage.error('从服务器加载移动端配置失败,返回本地的默认配置')
       mobileConfigIsLoading.value = false;
-      return [];
+      return JSON.parse(localStorage.getItem('mobileDefaultConfig') || '[]');
     }
   }
 }

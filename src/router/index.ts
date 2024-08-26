@@ -23,10 +23,16 @@ const router = createRouter({
                         component: () => import('@/components/viewComponents/viewLiteComponents/homeLiteViewComponent.vue'),
                     },
                     {
+                        path:'/index/main/serverStatus',
+                        name: '主页/服务器状态',
+                        component: () => import('@/components/viewComponents/viewLiteComponents/serverStatusLiteViewComponent.vue'),
+                    },
+                    {
                         path:'/index/main/settings',
                         name: '主页/设置',
                         component: () => import('@/components/viewComponents/viewLiteComponents/settingsLiteViewComponent.vue'),
                     },
+
                 ]
             },
         ]
