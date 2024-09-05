@@ -1,6 +1,6 @@
 # Hezae_Final_EX
 
-本科最终作品，还在开发中，敬请期待
+1.文件云存储功能（小型，限制文件类型）
 
 ## 推荐的启动IDE
 [WebStorm]("https://www.jetbrains.com/webstorm/")
