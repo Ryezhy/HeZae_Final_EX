@@ -11,45 +11,45 @@ const handleAnchorClick = (e: MouseEvent,href:string) => {
   <el-row :gutter="18">
     <el-col :span="20" v-loading="false">
       <div ref="containerRef"  class="middle-content-scroller">
-        <div id="part1" style="height: 55vh;background: rgba(255, 0, 0, 0.00);margin-top: 30px;border-radius: 8px">
+        <div id="part1" style="height: 55vh;margin-top: 30px;border-radius: 8px">
           <span style="font-size: 21px;font-weight:bold;margin-left: 2px">1.总览</span>
           <ScrollerItem id="part1D1"  style="height: 40%;margin-top:16px;" title="1.1项目介绍"
                         content="此项目使用了多端开发，Web前端使用Vue3开发，UI组件库为Element Plus，后端使用FastAPI开发，移动端使用安卓(Compose)开发。"/>
           <ScrollerItem id="part1D2"  style="height: 50%;margin-top:16px;" title="1.2项目进度"
                         content=""/>
         </div>
-        <div id="part2" style="height: 800px;background: rgba(0, 0, 255, 0.02);margin-top: 30px;">
+        <div id="part2" style="height: 450px;margin-top: 30px;">
           <span style="font-size: 21px;font-weight:bold;margin-left: 2px">2.Web</span>
-          <ScrollerItem  id="part2D1" title="2.1.操作说明" style="height: 98%;margin-top:16px;"
+          <ScrollerItem  id="part2D1" title="2.1.操作说明" style="height: 90%;margin-top:16px;"
                         content=" 12331 "/>
         </div>
-        <div id="part3" style="height: 55vh;background: rgba(255, 0, 0, 0.00);margin-top: 30px;border-radius: 8px">
+        <div id="part3" style="height: 55vh;margin-top: 30px;border-radius: 8px">
           <span style="font-size: 21px;font-weight:bold;margin-left: 2px">3.StableDiffusion</span>
           <ScrollerItem id="part3D1"  style="height: 40%;margin-top:16px;" title="3.1引用"
                         content=""/>
           <ScrollerItem id="part3D2"  style="height: 50%;margin-top:16px;" title="3.2使用说明"
                         content=""/>
         </div>
-        <div id="part4" style="height: 800px;background: rgba(0, 0, 255, 0.02);margin-top: 30px;">
+        <div id="part4" style="height: 800px;margin-top: 30px;">
           <span style="font-size: 21px;font-weight:bold;margin-left: 2px">4.移动端</span>
           <ScrollerItem  id="part2D1" title="4.1.操作说明" content="" style="height: 96%;margin-top:16px;">
             <template #default	>测试槽位</template>
           </ScrollerItem>
         </div>
-        <div id="part5" style="height: 500px;background: rgba(0, 0, 255, 0.02);margin-top: 30px;">
+        <div id="part5" style="height: 500px;margin-top: 30px;">
           part5
         </div>
-        <div id="part6" style="height: 800px;background: rgba(0, 0, 255, 0.02);margin-top: 30px;">
+        <div id="part6" style="height: 800px;margin-top: 30px;">
           part6
         </div>
-        <div id="part7" style="height: 400px;background: rgba(0, 0, 255, 0.02);margin-top: 30px;">
+        <div id="part7" style="height: 400px;margin-top: 30px;">
           part7
         </div>
       </div>
     </el-col>
     <el-col :span="4">
       <el-affix :offset="80">
-        <el-anchor  style="height: 90vh;" :container="containerRef" direction="vertical" type="defaule" :offset="30" @click="handleAnchorClick" class="content-style">
+        <el-anchor  style="height: 90vh;border-radius: 8px;padding: 5px" :container="containerRef" direction="vertical" type="defaule" :offset="30" @click="handleAnchorClick" class="content-style">
           <el-anchor-link href="#part1" style="border-radius: 4px;" >
                   <template #default	>
                     <div  style="height: 24px;padding: 0;margin: 0">

@@ -28,7 +28,7 @@ const props = defineProps({
 
 <style scoped>
 .scrollItem{
-  background: #f2f2f2;padding: 8px;
+  background: #DFEDF9;padding: 8px;
   border-radius: 8px;
   width: 100%;
   height: 100%;

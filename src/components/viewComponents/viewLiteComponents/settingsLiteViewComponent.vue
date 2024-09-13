@@ -25,7 +25,7 @@ const getDefaultConfig =async(type:string)=> {//获取默认参数
     try {
       const response = await axios.get('http://127.0.0.1:8000/static/config/systemSettings.json?timestamp=' + Date.now());
       //等待2s
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 2000));
       systemConfigIsLoading.value = false;
       console.log(response.data)
       ElMessage.success('从服务器加载后台配置成功')
@@ -41,7 +41,7 @@ const getDefaultConfig =async(type:string)=> {//获取默认参数
     try {
       const response = await axios.get('http://127.0.0.1:8000/static/config/mobileSettings.json?timestamp=' + Date.now());
       //等待2s
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 2000));
       mobileConfigIsLoading.value = false;
       ElMessage.success('从服务器加载移动端配置成功')
       return response.data as BaseConfig[];

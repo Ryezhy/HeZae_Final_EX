@@ -10,24 +10,31 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
-<style>
+  <style lang="less">
+    html{
+      width: 100vw;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #F7F8FA;
+    }
+    body{
+      width: 100vw;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #FAFAFF;
+    }
     #app{
-        width: 100vw;
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-    }
-    .common-layout{
-        background: #E0EAF1;
-        width: 100vw;
-        height: 100vh;
-    }
-    .content-style{
-        height: 100%;
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        background-color: rgba(255, 255, 255, 0.5);
-        border-radius: 8px;
+      min-width: 100%;
+      max-width: 100%;
+      width: 100vw;
+      display: block;
+
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: rgba(78, 152, 203, 0.09);
     }
 </style>
 </html>

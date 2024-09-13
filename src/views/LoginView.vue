@@ -1,13 +1,24 @@
 <script setup lang="ts">
 import LoginComponent from "@/components/liteComponents/loginComponent.vue";
 import {Flag, User, Trophy } from "@element-plus/icons-vue";
+import {ref} from "vue";
 const moveToUrl = (url:string|undefined) => {
   window.open(url)
 }
+const isCollapsed = ref(false);
+window.addEventListener('resize', () => {
+  isCollapsed.value = window.innerWidth < 680;
+
+});
+
+// 初始化时根据窗口宽度判断是否折叠侧边栏
+if (window.innerWidth < 680) {
+  isCollapsed.value = true;
+}
 </script>
 <template>
-  <div class="common-layout" style="width: 100vw;height: 100%">
-    <el-menu mode="horizontal" :ellipsis="false">
+  <div class="common-layout" >
+    <el-menu  mode="horizontal" :ellipsis="false">
       <el-menu-item index="0">
         <template #title>
           <img
@@ -32,11 +43,11 @@ const moveToUrl = (url:string|undefined) => {
       </el-menu-item>
     </el-menu>
     <el-container>
-      <el-aside width="65vw">Aside</el-aside>
-      <el-container  width="35vw">
+      <el-aside v-if="!isCollapsed" style="width: 55%">Aside</el-aside>
+      <el-container  style="min-width: 450px;max-width: 580px">
         <el-header>Header</el-header>
-        <el-main>
-          <LoginComponent/>
+        <el-main >
+          <LoginComponent ></LoginComponent>
         </el-main>
         <el-footer>Footer</el-footer>
       </el-container>
